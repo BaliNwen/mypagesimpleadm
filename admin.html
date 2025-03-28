@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - Solsi</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Using Orbitron for a futuristic look -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      color: #f0f0f0;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    header {
+      width: 100%;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.9);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      margin: 0;
+    }
+    header a {
+      text-decoration: none;
+      color: #f0f0f0;
+      padding: 8px 16px;
+      border: 1px solid #444;
+      border-radius: 5px;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    header a:hover {
+      background: #444;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 40px auto;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    }
+    .sophisticated-message {
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: #ccc;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #333;
+      text-align: left;
+    }
+    th {
+      background: #222;
+    }
+    tr:nth-child(even) {
+      background: #1a1a1a;
+    }
+    tr:hover {
+      background: #333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Solsi Admin Dashboard</h1>
+    <a href="https://www.solsi.org"><i class="fa fa-sign-out"></i> Logout</a>
+  </header>
+  
+  <div class="container">
+    <h2>Waitlist Entries</h2>
+    <div class="sophisticated-message">
+      Welcome to the Solsi admin dashboard. Below is a live list of users who have joined our exclusive waitlist.
+    </div>
+    <table id="waitlist-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+        </tr>
+      </thead>
+      <tbody id="waitlist-body">
+        <!-- Data rows will be inserted here automatically -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Function to load waitlist entries from the Flask API
+    function loadWaitlist() {
+      fetch('/api/waitlist')
+        .then(response => response.json())
+        .then(data => {
+          const tbody = document.getElementById('waitlist-body');
+          tbody.innerHTML = '';
+          if (data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">No entries found.</td></tr>';
+          } else {
+            data.forEach(entry => {
+              const row = document.createElement('tr');
+              row.innerHTML = `
+                <td>${entry.name}</td>
+                <td>${entry.email}</td>
+                <td>${entry.phone || ''}</td>
+              `;
+              tbody.appendChild(row);
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching waitlist data:', error);
+          document.getElementById('waitlist-body').innerHTML = '<tr><td colspan="3" style="text-align:center; color: #ff6666;">Failed to load data.</td></tr>';
+        });
+    }
+
+    // Load the waitlist when the page loads
+    document.addEventListener('DOMContentLoaded', loadWaitlist);
+  </script>
+</body>
+</html>
