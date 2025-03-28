@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login - Solsi</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Using Orbitron for a futuristic look, similar to Solsi -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    /* Container for the login form */
+    .login-container {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      width: 320px;
+      text-align: center;
+    }
+    .login-container h2 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      text-align: left;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+    input[type="password"] {
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 5px;
+      background: #222;
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      box-shadow: inset 0 0 5px rgba(255,255,255,0.1);
+      transition: box-shadow 0.3s;
+    }
+    input[type="password"]:focus {
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+    button {
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      background: #444;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    button:hover {
+      background: #666;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    .message {
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      color: #ff6666;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Admin Access Only</h2>
+   
+          <div class="message">Enter Password</div>
+
+    <form method="POST" action="http://127.0.0.1:5000/admin/login">
+      <label for="password">Enter Password:</label>
+      <input type="password" name="password" id="password" required placeholder="••••••">
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</body>
+</html>
